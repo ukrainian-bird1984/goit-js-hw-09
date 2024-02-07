@@ -1,7 +1,6 @@
-const storagKey = 'feedback-form-state';
+const storageKey = 'feedback-form-state';
 
 const form = document.querySelector('.feedback-form');
-const textarea = form.querySelector('textarea');
 
 form.addEventListener('input', e => {
   const userName = form.elements.email.value.trim();
@@ -11,7 +10,7 @@ form.addEventListener('input', e => {
     email: userName,
     message: userMessage,
   };
-  saveToLs(storagKey, data);
+  saveToLs(storageKey, data);
 });
 
 form.addEventListener('submit', e => {
@@ -25,10 +24,10 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  const data = loadFromLs(storagKey);
+  const data = loadFromLs(storageKey);
   console.log(data);
   form.reset();
-  localStorage.removeItem(storagKey);
+  localStorage.removeItem(storageKey);
 });
 
 function saveToLs(key, value) {
@@ -43,12 +42,11 @@ function loadFromLs(key) {
     const result = JSON.parse(data);
     return result;
   } catch {
-    return data;
-  }
+    return null;   }
 }
 
 function restoreData() {
-  const data = loadFromLs(storagKey) || {};
+  const data = loadFromLs(storageKey) || {};
 
   form.elements.email.value = (data.email || '').trim();
   form.elements.message.value = (data.message || '').trim();
