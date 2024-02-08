@@ -40,15 +40,18 @@ function loadFromLs(key) {
 
   try {
     const result = JSON.parse(data);
-    return result;
-  } catch {
-    return null;   }
+    return result || {}; 
+  } catch (error) {
+    console.error('Помилка при розкодуванні даних з localStorage:', error.message);
+    return {}; 
+  }
 }
 
 function restoreData() {
-  const data = loadFromLs(storageKey) || {};
+  const data = loadFromLs(storageKey);
 
   form.elements.email.value = (data.email || '').trim();
   form.elements.message.value = (data.message || '').trim();
 }
+
 restoreData();
