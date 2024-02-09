@@ -3,11 +3,11 @@ const storageKey = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
 
 form.addEventListener('input', e => {
-  const userName = form.elements.email.value.trim();
+  const userEmail = form.elements.email.value.trim();
   const userMessage = form.elements.message.value.trim();
 
   const data = {
-    email: userName,
+    email: userEmail,
     message: userMessage,
   };
   saveToLs(storageKey, data);
@@ -16,10 +16,10 @@ form.addEventListener('input', e => {
 form.addEventListener('submit', e => {
   e.preventDefault();
 
-  const userName = form.elements.email.value.trim();
+  const userEmail = form.elements.email.value.trim();
   const userMessage = form.elements.message.value.trim();
 
-  if (userName === '' || userMessage === '') {
+  if (userEmail === '' || userMessage === '') {
     alert('Заповніть будь ласка форму');
     return;
   }
@@ -40,10 +40,10 @@ function loadFromLs(key) {
 
   try {
     const result = JSON.parse(data);
-    return result || {}; 
+    return result || {};
   } catch (error) {
     console.error('Помилка при розкодуванні даних з localStorage:', error.message);
-    return {}; 
+    return {};
   }
 }
 
@@ -54,4 +54,4 @@ function restoreData() {
   form.elements.message.value = (data.message || '').trim();
 }
 
-restoreData();
+document.addEventListener('DOMContentLoaded', restoreData);
