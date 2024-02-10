@@ -24,8 +24,8 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  const data = loadFromLs(storageKey);
-  console.log(data);
+  console.log(loadFromLs(storageKey));
+
   form.reset();
   localStorage.removeItem(storageKey);
 });
@@ -50,8 +50,8 @@ function loadFromLs(key) {
 function restoreData() {
   const data = loadFromLs(storageKey);
 
-  form.elements.email.value = (data.email || '').trim();
-  form.elements.message.value = (data.message || '').trim();
+  form.elements.email.value = data.email || '';
+  form.elements.message.value = data.message || '';
 }
 
 document.addEventListener('DOMContentLoaded', restoreData);
