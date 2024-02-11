@@ -10,7 +10,7 @@ form.addEventListener('input', e => {
     email: userEmail,
     message: userMessage,
   };
-  saveToLs(storageKey, data);
+  saveToLocalStorage(storageKey, data);
 });
 
 form.addEventListener('submit', e => {
@@ -24,18 +24,18 @@ form.addEventListener('submit', e => {
     return;
   }
 
-  console.log(loadFromLs(storageKey));
+  console.log(loadFromLocalStorage(storageKey));
 
   form.reset();
   localStorage.removeItem(storageKey);
 });
 
-function saveToLs(key, value) {
+function saveToLocalStorage(key, value) {
   const jsonData = JSON.stringify(value);
   localStorage.setItem(key, jsonData);
 }
 
-function loadFromLs(key) {
+function loadFromLocalStorage(key) {
   const data = localStorage.getItem(key);
 
   try {
@@ -48,7 +48,7 @@ function loadFromLs(key) {
 }
 
 function restoreData() {
-  const data = loadFromLs(storageKey);
+  const data = loadFromLocalStorage(storageKey);
 
   form.elements.email.value = data.email || '';
   form.elements.message.value = data.message || '';
