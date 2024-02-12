@@ -2,7 +2,7 @@ const storageKey = 'feedback-form-state';
 
 const form = document.querySelector('.feedback-form');
 
-form.addEventListener('input', e => {
+function saveFormData() {
   const userEmail = form.elements.email.value.trim();
   const userMessage = form.elements.message.value.trim();
 
@@ -11,7 +11,9 @@ form.addEventListener('input', e => {
     message: userMessage,
   };
   saveToLocalStorage(storageKey, data);
-});
+}
+
+form.addEventListener('input', saveFormData);
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -48,10 +50,19 @@ function loadFromLocalStorage(key) {
 }
 
 function restoreData() {
-  const data = loadFromLocalStorage(storageKey);
+  try {
+    const data = loadFromLocalStorage(storageKey);
 
-  form.elements.email.value = data.email || '';
-  form.elements.message.value = data.message || '';
+    if (data.email && data.message) {
+      form.elements.email.value = data.email;
+      form.elements.message.value = data.message;
+    }
+  } catch (error) {
+    console.error('Помилка при відновленні даних:', error.message);
+  }
 }
 
-document.addEventListener('DOMContentLoaded', restoreData);
+document.addEventListener('DOMContentLoaded', () => {
+  restoreData();
+  form.addEventListener('submit', saveFormData);
+});
