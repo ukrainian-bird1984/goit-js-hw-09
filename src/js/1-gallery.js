@@ -14,7 +14,7 @@ function renderGallery(images) {
   gallery.insertAdjacentHTML('afterbegin', markup);
 }
 
-renderGallery(images);
+renderGallery(markup);
 
 new SimpleLightbox('.gallery a', {
   captionDelay: 250,
